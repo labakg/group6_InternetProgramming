@@ -9,38 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-    <script>
 
-        function ajaxFunc(){
-            var ajaxRequest;
-
-            try{
-                ajaxRequest = new XMLHttpRequest();
-            }catch (e){
-                try{
-                    ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-                }catch (e){
-                    try{
-                        ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP")
-                    }catch (e){
-                        alert("Your browser broke!");
-                        return false;
-                    }
-                }
-            }
-
-            ajaxRequest.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    document.getElementById("output").innerHTML = this.responseText;
-                }
-            }
-
-            var selection = document.indexForm.eatery.value;
-
-            ajaxRequest.open("GET", "getIndexData.php?selection=" + selection, true);
-            ajaxRequest.send();
-        }
-    </script>
 </head>
 <body>
 <?php
@@ -100,67 +69,56 @@ $isAdmin = $_SESSION['isAdmin'];
         </ul>
     </div>
 </nav>
- <div class="container">
-     <div class="row">
+<div class="container">
+    <div class="row">
         <div class="col-md-12">
             <div class="jumbotron">
-                <h1 class="display-3">Hungry Campus </h1>
-                <p class="lead">This site allows your to leave reviews and ratings of eating establishments on the UNF Campus </p>
+                <h1 class="display-3">Einstein Bagels </h1>
+                <p class="lead">Put lox on your bagels, just to be safe  </p>
                 <hr class="my-4">
                 <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">About us!</a>
                     <?php
-                        if($username == ""){
-                           echo "<a class='btn btn-primary btn-lg' href='loginPage.php' role='button'>Log In to Contribute!</a>";
-                        }else{
-                            echo "<a class='btn btn-primary btn-lg' href='review.php' role='button'>Leave a review!</a>";
-                        }
+                    if($username == ""){
+                        echo "<a class='btn btn-primary btn-lg' href='loginPage.php' role='button'>Log In to Contribute!</a>";
+                    }else{
+                        echo "<a class='btn btn-primary btn-lg' href='review.php?eateryID=5' role='button'>Leave a review!</a>";
+                    }
+                    $totalReviews =0;
+                    $totalRating = 0;
+                    $conn = new mysqli("localhost", "group6", "fall2017188953", "group6");
+
+                    if($conn->connect_error){
+                        die("Connection failed : " . $conn->connect_error);
+                    }
+                    $query = $conn->prepare("SELECT Post.rating FROM Post WHERE Post.eateryID = 5");
+                    $query->execute();
+                    $query->bind_result($rating);
+                    while($query->fetch()){
+                        $totalReviews++;
+                        $totalRating += $rating;
+                    }
+                    echo "<br><br>";
+                    echo "Overall Rating " . $totalRating / $totalReviews . " / " . "5";
                     ?>
                 </p>
             </div>
         </div>
-     </div>
-         <div class="col-md-10">
-             <h2>Recent Reviews
-             <form name="indexForm" onchange="ajaxFunc()">
-                 <div class="form-group">
-                     <select id="eatery" name="eatery" class="form-control"> '
-                         <option selected value="all"> All Reviews</option>
-                         <?php
-                         $conn = new mysqli("localhost", "group6", "fall2017188953", "group6");
+    </div>
+    <div class="col-md-10">
+        <h2>Recent Reviews</h2>
+        <hr>
+        <?php
+        $conn2 = new mysqli("localhost", "group6", "fall2017188953", "group6");
 
-                         if($conn->connect_error){
-                             die("Connection failed : " . $conn->connect_error);
-                         }
-                         $query = $conn->prepare("SELECT eateryID, eateryName FROM Eatery");
-                         $query->execute();
-                         $query->bind_result($eateryID, $eateryName);
+        if($conn2->connect_error){
+            die("Connection failed : " . $conn->connect_error);
+        }
+        $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID WHERE Post.eateryID = 5");
+        $query2->execute();
+        $query2->bind_result($postID, $title, $review, $rating, $user, $eateryName, $date);
 
-                         while ($query->fetch()){
-                             echo "<option value='$eateryID'>$eateryName</option>";
-                         }
-                         $query->close();
-                         $conn->close();
-                         ?>
-                     </select>
-                 </div>
-             </form>
-             </h2>
-             <hr>
-             <p id="output"></p>
-             <?php
-                /*
-             $conn2 = new mysqli("localhost", "group6", "fall2017188953", "group6");
-
-             if($conn2->connect_error){
-                 die("Connection failed : " . $conn->connect_error);
-             }
-             $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID");
-             $query2->execute();
-             $query2->bind_result($postID, $title, $review, $rating, $user, $eateryName, $date);
-
-             while($query2->fetch()){
-                 echo "            
+        while($query2->fetch()){
+            echo "            
                     <div>
                     <h3>$eateryName</h3>
                     <h3>$title<h3></h3>
@@ -169,18 +127,17 @@ $isAdmin = $_SESSION['isAdmin'];
                     <p>Posted by: $user on $date</p>
                     <input type='hidden' name='postID' id='postID' value='$postID'>
                     " ;
-                     if ($isAdmin == 1){
-                        echo "<a class='btn btn-danger' href='delete.php?post=$postID' role='button'>Delete Post</a>";
-                     }
-                 echo "</div><hr>
+            if ($isAdmin == 1){
+                echo "<a class='btn btn-danger' href='delete.php?post=$postID' role='button'>Delete Post</a>";
+            }
+            echo "</div><hr>
                      ";
-             }
-                */
-             ?>
-
-     </div>
- </div>
-
+        }
+        ?>
+    </div>
+</div>
+</div>
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -189,4 +146,3 @@ $isAdmin = $_SESSION['isAdmin'];
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 </html>
-
