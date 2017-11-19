@@ -26,7 +26,7 @@ $isAdmin = $_SESSION['isAdmin'];
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
@@ -59,9 +59,9 @@ $isAdmin = $_SESSION['isAdmin'];
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
                     <?php
                     if ($username == ""){
-                        echo '<a class="dropdown-item" href="loginPage.php">Login</a>';
+                        echo '<a class="dropdown-item" href="../loginPage.php">Login</a>';
                     }else{
-                        echo '<a class="dropdown-item" href="logout.php">Logout</a>';
+                        echo '<a class="dropdown-item" href="../logout.php">Logout</a>';
                     }
                     ?>
                 </div>
@@ -79,9 +79,9 @@ $isAdmin = $_SESSION['isAdmin'];
                 <p class="lead">
                     <?php
                     if($username == ""){
-                        echo "<a class='btn btn-primary btn-lg' href='loginPage.php' role='button'>Log In to Contribute!</a>";
+                        echo "<a class='btn btn-primary btn-lg' href='../loginPage.php' role='button'>Log In to Contribute!</a>";
                     }else{
-                        echo "<a class='btn btn-primary btn-lg' href='review.php?eateryID=3' role='button'>Leave a review!</a>";
+                        echo "<a class='btn btn-primary btn-lg' href='../posts/review.php?eateryID=3' role='button'>Leave a review!</a>";
                     }
                     $totalReviews =0;
                     $totalRating = 0;
@@ -128,7 +128,7 @@ $isAdmin = $_SESSION['isAdmin'];
                     <input type='hidden' name='postID' id='postID' value='$postID'>
                     " ;
             if ($isAdmin == 1){
-                echo "<a class='btn btn-danger' href='delete.php?post=$postID' role='button'>Delete Post</a>";
+                echo "<a class='btn btn-danger' href='../posts/delete.php?post=$postID' role='button'>Delete Post</a>";
             }
             echo "</div><hr>
                      ";
