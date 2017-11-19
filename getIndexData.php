@@ -30,7 +30,7 @@ while($query2->fetch()){
                     <input type='hidden' name='postID' id='postID' value='$postID'>
                     " ;
     if ($isAdmin == 1){
-        echo "<a class='btn btn-danger' href='delete.php?post=$postID' role='button'>Delete Post</a>";
+        echo "<a class='btn btn-danger' href='posts/delete.php?post=$postID' role='button'>Delete Post</a>";
     }
     echo "</div><hr>
                      ";

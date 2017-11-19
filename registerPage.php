@@ -34,12 +34,12 @@ $isAdmin = $_SESSION['isAdmin'];
                     Locations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="cafeteria.php">Cafeteria</a>
-                    <a class="dropdown-item" href="ChickFilA.php">Chick Fil A</a>
-                    <a class="dropdown-item" href="starbucks.php">Starbucks</a>
-                    <a class="dropdown-item" href="papajohns.php">Papa Johns</a>
-                    <a class="dropdown-item" href="einsteinbagles.php">Einstein Bagels </a>
-                    <a class="dropdown-item" href="pitapit.php">Pita Pit</a>
+                    <a class="dropdown-item" href="locations/cafeteria.php">Cafeteria</a>
+                    <a class="dropdown-item" href="locations/ChickFilA.php">Chick Fil A</a>
+                    <a class="dropdown-item" href="locations/starbucks.php">Starbucks</a>
+                    <a class="dropdown-item" href="locations/papajohns.php">Papa Johns</a>
+                    <a class="dropdown-item" href="locations/einsteinbagels.php">Einstein Bagels </a>
+                    <a class="dropdown-item" href="locations/pitapit.php">Pita Pit</a>
                 </div>
             </li>
         </ul>
