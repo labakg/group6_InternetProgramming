@@ -3,6 +3,9 @@
 session_start();
 $username = $_SESSION['username'];
 $isAdmin = $_SESSION['isAdmin'];
+if ($username == '' || $isAdmin != 1){
+    header("Location: ../index.php");
+}
 
 $postID = $_GET['post'];
 
@@ -23,4 +26,4 @@ if ($query->execute() === TRUE){
 
 $query->close();
 $conn->close();
-header("Location: index.php");
+header("Location: ../index.php");

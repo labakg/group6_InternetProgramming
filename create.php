@@ -5,6 +5,10 @@ $username = $_SESSION['username'];
 $isAdmin = $_SESSION['isAdmin'];
 $userID = $_SESSION['userID'];
 
+if($username == ""){
+    header("Location: ../loginPage.php");
+}
+
 $eateryID = $_POST['eatery'];
 $title = $_POST['title'];
 $review = $_POST['review'];
@@ -31,21 +35,21 @@ $conn->close();
 
 switch($eateryID){
     case 1:
-        header("Location: cafeteria.php");
+        header("Location: ../locations/cafeteria.php");
         break;
     case 2:
-        header("Location: ChickFilA.php");
+        header("Location: ../locations/ChickFilA.php");
         break;
     case 3:
-        header("Location: starbucks.php");
+        header("Location: ../locations/starbucks.php");
         break;
     case 4:
-        header("Location: papajohns.php");
+        header("Location: ../locations/papajohns.php");
         break;
     case 5:
-        header("Location: einsteinbagles.php");
+        header("Location: ../locations/einsteinbagles.php");
         break;
     case 6:
-        header("Location: pitapit.php");
+        header("Location: ../locations/pitapit.php");
         break;
 }

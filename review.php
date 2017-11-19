@@ -16,7 +16,7 @@ $username = $_SESSION['username'];
 $isAdmin = $_SESSION['isAdmin'];
 
 if($username == ""){
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,7 +28,7 @@ if($username == ""){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
@@ -38,12 +38,12 @@ if($username == ""){
                     Locations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="cafeteria.php">Cafeteria</a>
-                    <a class="dropdown-item" href="ChickFilA.php">Chick Fil A</a>
-                    <a class="dropdown-item" href="starbucks.php">Starbucks</a>
-                    <a class="dropdown-item" href="papajohns.php">Papa Johns</a>
-                    <a class="dropdown-item" href="einsteinbagels.php">Einstein Bagels </a>
-                    <a class="dropdown-item" href="pitapit.php">Pita Pit</a>
+                    <a class="dropdown-item" href="locations/cafeteria.php">Cafeteria</a>
+                    <a class="dropdown-item" href="locations/ChickFilA.php">Chick Fil A</a>
+                    <a class="dropdown-item" href="locations/starbucks.php">Starbucks</a>
+                    <a class="dropdown-item" href="locations/papajohns.php">Papa Johns</a>
+                    <a class="dropdown-item" href="locations/einsteinbagels.php">Einstein Bagels </a>
+                    <a class="dropdown-item" href="locations/pitapit.php">Pita Pit</a>
                 </div>
             </li>
         </ul>
@@ -61,9 +61,9 @@ if($username == ""){
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownLogin">
                     <?php
                     if ($username == ""){
-                        echo '<a class="dropdown-item" href="loginPage.php">Login</a>';
+                        echo '<a class="dropdown-item" href="../loginPage.php">Login</a>';
                     }else{
-                        echo '<a class="dropdown-item" href="logout.php">Logout</a>';
+                        echo '<a class="dropdown-item" href="../logout.php">Logout</a>';
                     }
                     ?>
                 </div>
@@ -119,7 +119,30 @@ if($username == ""){
                         </select>
                     </div>
                     <input type="submit" value="Submit"">
-                    <a class="btn btn-danger" href="index.php" role="button">Cancel</a>
+                    <?php
+                        switch($_GET['eateryID']){
+                            case 1:
+                                echo '<a class="btn btn-danger" href="../locations/cafeteria.php" role="button">Cancel</a>';
+                                break;
+                            case 2:
+                                echo '<a class="btn btn-danger" href="../locations/ChickFilA.php" role="button">Cancel</a>';
+                                break;
+                            case 3:
+                                echo '<a class="btn btn-danger" href="../locations/starbucks.php" role="button">Cancel</a>';
+                                break;
+                            case 4:
+                                echo '<a class="btn btn-danger" href="../locations/papajohns.php" role="button">Cancel</a>';
+                                break;
+                            case 5:
+                                echo '<a class="btn btn-danger" href="../locations/einsteinbagels.php" role="button">Cancel</a>';
+                                break;
+                            case 6:
+                                echo '<a class="btn btn-danger" href="../locations/pitapit.php" role="button">Cancel</a>';
+                                break;
+                            default:
+                                echo '<a class="btn btn-danger" href="../index.php" role="button">Cancel</a>';
+                                break;
+}                           ?>
                 </form>
             </div>
         </div>
