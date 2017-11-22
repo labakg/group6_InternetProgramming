@@ -8,7 +8,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        body{background-color: darkblue}
+        .reviews{background-color: lightgray; padding: 10px; border: 2px solid white}
+        .img {float: right; height: 20% ; width: 20%}
 
+    </style>
 
 </head>
 <body>
@@ -18,14 +23,14 @@ $username = $_SESSION['username'];
 $isAdmin = $_SESSION['isAdmin'];
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Hungry Campus</a>
+    <a class="navbar-brand" href="../index.php">Hungry Campus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -78,11 +83,6 @@ $isAdmin = $_SESSION['isAdmin'];
                 <hr class="my-4">
                 <p class="lead">
                     <?php
-                    if($username == ""){
-                        echo "<a class='btn btn-primary btn-lg' href='../loginPage.php' role='button'>Log In to Contribute!</a>";
-                    }else{
-                        echo "<a class='btn btn-primary btn-lg' href='../posts/review.php?eateryID=5' role='button'>Leave a review!</a>";
-                    }
                     $totalReviews =0;
                     $totalRating = 0;
                     $conn = new mysqli("localhost", "group6", "fall2017188953", "group6");
@@ -97,14 +97,20 @@ $isAdmin = $_SESSION['isAdmin'];
                         $totalReviews++;
                         $totalRating += $rating;
                     }
-                    echo "<br><br>";
                     echo "Overall Rating " . $totalRating / $totalReviews . " / " . "5";
+                    echo "<br><br>";
+                    if($username == ""){
+                        echo "<a class='btn btn-primary btn-lg' href='../loginPage.php' role='button'>Log In to Contribute!</a>";
+                    }else{
+                        echo "<a class='btn btn-primary btn-lg' href='../posts/review.php?eateryID=5' role='button'>Leave a review!</a>";
+                    }
                     ?>
                 </p>
             </div>
         </div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-12">
+        <div class="reviews">
         <h2>Recent Reviews</h2>
         <hr>
         <?php
@@ -113,7 +119,7 @@ $isAdmin = $_SESSION['isAdmin'];
         if($conn2->connect_error){
             die("Connection failed : " . $conn->connect_error);
         }
-        $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID WHERE Post.eateryID = 5");
+        $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID WHERE Post.eateryID = 5 ORDER BY Post.time DESC");
         $query2->execute();
         $query2->bind_result($postID, $title, $review, $rating, $user, $eateryName, $date);
 
@@ -134,6 +140,7 @@ $isAdmin = $_SESSION['isAdmin'];
                      ";
         }
         ?>
+    </div>
     </div>
 </div>
 </div>
