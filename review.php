@@ -15,6 +15,12 @@
             $("#newReview").validate();
     </script>
 
+    <style>
+        body{background-color: darkblue}
+        .create{background-color: lightgray; padding: 10px; border: 2px solid white; margin: 50px}
+        .img {float: right; height: 20% ; width: 20%}
+
+    </style>
 
 </head>
 <body>
@@ -28,14 +34,14 @@ if($username == ""){
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Hungry Campus</a>
+    <a class="navbar-brand" href="../index">Hungry Campus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -81,7 +87,7 @@ if($username == ""){
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="create">
                 <h3>Leave a review!</h3>
                 <form name="newReview" action="create.php" method="post">
@@ -126,7 +132,7 @@ if($username == ""){
                             <option>5</option>
                         </select>
                     </div>
-                    <input type="submit" id="submit" value="Submit"">
+                    <button class="btn btn-primary" type="submit">Submit</button>
                     <?php
                         switch($_GET['eateryID']){
                             case 1:
