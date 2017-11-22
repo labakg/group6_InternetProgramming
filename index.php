@@ -8,7 +8,13 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        body{background-color: darkblue}
+        .reviews{background-color: lightgray; padding: 10px; border: 2px solid white}
+        .img {float: right; height: 20% ; width: 20%}
 
+        .carousel-inner {max-height: 500px}
+    </style>
     <script>
 
         function ajaxFunc(){
@@ -41,6 +47,7 @@
             ajaxRequest.send();
         }
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <?php
@@ -104,81 +111,89 @@ $isAdmin = $_SESSION['isAdmin'];
      <div class="row">
         <div class="col-md-12">
             <div class="jumbotron">
-                <h1 class="display-3">Hungry Campus </h1>
-                <p class="lead">This site allows your to leave reviews and ratings of eating establishments on the UNF Campus </p>
-                <hr class="my-4">
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="#" role="button">About us!</a>
-                    <?php
-                        if($username == ""){
-                           echo "<a class='btn btn-primary btn-lg' href='loginPage.php' role='button'>Log In to Contribute!</a>";
-                        }else{
-                            echo "<a class='btn btn-primary btn-lg' href='posts/review.php' role='button'>Leave a review!</a>";
-                        }
-                    ?>
-                </p>
+                <h1 class="display-3">UNF Hungry Campus <span><img class="img" src="Images/UNF_Ospreys_logo.png"></span></h1>
+                <p class="lead">A community for North Florida Foodies to discuss and review the on-campus eateries</p>
+                <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100 h-100" src="Images/cafe2.jpg">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="Images/CFA.jpg">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="Images/es.jpg">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="Images/pj.jpg">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="Images/pp.jpg">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" src="Images/sb.jpg">
+                        </div>
+                    </div>
             </div>
         </div>
      </div>
-         <div class="col-md-10">
-             <h2>Recent Reviews
-             <form name="indexForm" onchange="ajaxFunc()">
-                 <div class="form-group">
-                     <select id="eatery" name="eatery" class="form-control"> '
-                         <option selected value="all"> All Reviews</option>
-                         <?php
-                         $conn = new mysqli("localhost", "group6", "fall2017188953", "group6");
-
-                         if($conn->connect_error){
-                             die("Connection failed : " . $conn->connect_error);
-                         }
-                         $query = $conn->prepare("SELECT eateryID, eateryName FROM Eatery");
-                         $query->execute();
-                         $query->bind_result($eateryID, $eateryName);
-
-                         while ($query->fetch()){
-                             echo "<option value='$eateryID'>$eateryName</option>";
-                         }
-                         $query->close();
-                         $conn->close();
-                         ?>
-                     </select>
-                 </div>
-             </form>
-             </h2>
-             <hr>
-             <p id="output"></p>
-             <?php
-                /*
-             $conn2 = new mysqli("localhost", "group6", "fall2017188953", "group6");
-
-             if($conn2->connect_error){
-                 die("Connection failed : " . $conn->connect_error);
-             }
-             $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID");
-             $query2->execute();
-             $query2->bind_result($postID, $title, $review, $rating, $user, $eateryName, $date);
-
-             while($query2->fetch()){
-                 echo "            
-                    <div>
-                    <h3>$eateryName</h3>
-                    <h3>$title<h3></h3>
-                    <p>$review</p>
-                    <p>Overalll rating: $rating / 5</p>
-                    <p>Posted by: $user on $date</p>
-                    <input type='hidden' name='postID' id='postID' value='$postID'>
-                    " ;
-                     if ($isAdmin == 1){
-                        echo "<a class='btn btn-danger' href='delete.php?post=$postID' role='button'>Delete Post</a>";
-                     }
-                 echo "</div><hr>
-                     ";
-             }
-                */
-             ?>
-
      </div>
+         <div class="row">
+         <div class="col-md-8">
+             <div class="reviews">
+                     <form name="indexForm" onchange="ajaxFunc()">
+                         <div class="form-group">
+                             <h2>Recent Reviews</h2>
+                             <div class="col-md-4">
+                                 <select id="eatery" name="eatery" class="form-control">
+                                 <option selected disabled value=""> --Select an Option -- </option>
+                                 <option value="all"> All Reviews</option>
+                                 <?php
+                                 $conn = new mysqli("localhost", "group6", "fall2017188953", "group6");
+
+                                 if($conn->connect_error){
+                                     die("Connection failed : " . $conn->connect_error);
+                                 }
+                                 $query = $conn->prepare("SELECT eateryID, eateryName FROM Eatery");
+                                 $query->execute();
+                                 $query->bind_result($eateryID, $eateryName);
+
+                                 while ($query->fetch()){
+                                     echo "<option value='$eateryID'>$eateryName</option>";
+                                 }
+                                 $query->close();
+                                 $conn->close();
+                                 ?>
+                             </select>
+                             </div>
+                         </div>
+                     </form>
+                <hr>
+                    <p id="output"></p>
+             </div>
+         </div>
+         <div class="col-md-4">
+             <div class="reviews">
+                 <h3>Who are we?</h3>
+                 <p>
+                 We are a group of UNF Computing students who wanted to give all students on campus that are passionate about food a voice to be heard.
+                 <br>
+                     <a class="btn btn-primary" href="#" role="button">About us!</a>
+                 </p>
+                 <h3>Want to Join?</h3>
+                 <p>
+                 We want you to contribute, your voice matters. But you must log in first!<br>
+                     <?php
+                     if($username == ""){
+                         echo "<a class='btn btn-primary' href='loginPage.php' role='button'>Log In to Contribute!</a>";
+                     }else{
+                         echo "<a class='btn btn-primary' href='posts/review.php' role='button'>Leave a review!</a>";
+                     }
+                     ?>
+                 </p>
+             </div>
+        </div>
+    </div>
  </div>
 
 

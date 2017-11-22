@@ -8,6 +8,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        body{background-color: darkblue}
+        .user{background-color: lightgray; padding: 10px; border: 2px solid white; margin: 50px}
+    </style>
+
 </head>
 <body>
 <?php
@@ -16,15 +21,15 @@
     $isAdmin = $_SESSION['isAdmin'];
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Hungry Campus</a>
+    <a class="navbar-brand" href="index.php">Hungry Campus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
@@ -44,7 +49,7 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLogin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php
                     if ($username == ""){
@@ -70,6 +75,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            <div class="user">
             <form name="login" action="login.php" method="post">
                 <div class="form-group">
                     <label name="userName">Username:</label>
@@ -87,11 +93,12 @@
                     <?php
                     ($error = $_GET['error']);
                     if ($error == 1){
-                        echo "<p color='red'> Invalid Credentials</p>";
+                        echo "<h2 color='red'> Invalid Credentials</h2>";
                     }
                     ?>
                 </div>
             </form>
+            </div>
         </div>
     </div>
 </div>
