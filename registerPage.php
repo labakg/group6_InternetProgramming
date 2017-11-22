@@ -8,6 +8,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        body{background-color: darkblue}
+        .user{background-color: lightgray; padding: 10px; border: 2px solid white; margin: 50px}
+    </style>
 </head>
 <body>
 <?php
@@ -72,6 +76,7 @@ $isAdmin = $_SESSION['isAdmin'];
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            <div class="user">
             <form name="login" action="register.php" method="post">
                 <div class="form-group">
                     <label name="userName">Username:</label>
@@ -87,6 +92,7 @@ $isAdmin = $_SESSION['isAdmin'];
                     </div>
                 </div>
             </form>
+        </div>
         </div>
     </div>
 </div>
