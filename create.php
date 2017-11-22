@@ -9,9 +9,16 @@ if($username == ""){
     header("Location: ../loginPage.php");
 }
 
+function valid($str) {
+    return preg_match('/^[A-Za-z0-9_~\-!@#\$%\^&*\(\)]+$/',$str);
+
+}
+
 $eateryID = $_POST['eatery'];
 $title = $_POST['title'];
+$title = preg_replace('#<(.*?)>(.*?)</(.*?)>#is', '', $title);
 $review = $_POST['review'];
+$review = preg_replace('#<(.*?)>(.*?)</(.*?)>#is', '', $review);
 $rating = $_POST['rating'];
 $date = date("y.m.d h:i:S a");
 

@@ -8,6 +8,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"</script>
+    <script>
+        $(document).ready(function()){
+            $("#newReview").validate();
+    </script>
+
+
 </head>
 <body>
 <?php
@@ -38,12 +46,12 @@ if($username == ""){
                     Locations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="locations/cafeteria.php">Cafeteria</a>
-                    <a class="dropdown-item" href="locations/ChickFilA.php">Chick Fil A</a>
-                    <a class="dropdown-item" href="locations/starbucks.php">Starbucks</a>
-                    <a class="dropdown-item" href="locations/papajohns.php">Papa Johns</a>
-                    <a class="dropdown-item" href="locations/einsteinbagels.php">Einstein Bagels </a>
-                    <a class="dropdown-item" href="locations/pitapit.php">Pita Pit</a>
+                    <a class="dropdown-item" href="../locations/cafeteria.php">Cafeteria</a>
+                    <a class="dropdown-item" href="../locations/ChickFilA.php">Chick Fil A</a>
+                    <a class="dropdown-item" href="../locations/starbucks.php">Starbucks</a>
+                    <a class="dropdown-item" href="../locations/papajohns.php">Papa Johns</a>
+                    <a class="dropdown-item" href="../locations/einsteinbagels.php">Einstein Bagels </a>
+                    <a class="dropdown-item" href="../locations/pitapit.php">Pita Pit</a>
                 </div>
             </li>
         </ul>
@@ -102,11 +110,11 @@ if($username == ""){
                     </div>
                     <div class="form-group">
                         <label name="title">Title:</label>
-                        <input name="title" id="title" class="form-control">
+                        <input name="title" id="title" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label name="review">Your thoughts:</label>
-                        <textarea id="review" name="review" class="form-control"></textarea>
+                        <textarea id="review" name="review" class="form-control" required></textarea>
                     </div>
                     <div class="form-group">
                         <label name="rating">Rating</label>
@@ -118,7 +126,7 @@ if($username == ""){
                             <option>5</option>
                         </select>
                     </div>
-                    <input type="submit" value="Submit"">
+                    <input type="submit" id="submit" value="Submit"">
                     <?php
                         switch($_GET['eateryID']){
                             case 1:
