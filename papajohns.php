@@ -126,7 +126,6 @@ $isAdmin = $_SESSION['isAdmin'];
         while($query2->fetch()){
             echo "            
                     <div>
-                    <h3>$eateryName</h3>
                     <h3>$title<h3></h3>
                     <p>$review</p>
                     <p>Overalll rating: $rating / 5</p>
