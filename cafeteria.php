@@ -74,6 +74,20 @@ $isAdmin = $_SESSION['isAdmin'];
         </ul>
     </div>
 </nav>
+<div id="map" style="width:400px;height:400px;background:yellow"></div>
+<script>
+function myMap() {
+var mapOptions = {
+    center: new google.maps.LatLng(30.2669377,-81.50626),
+    zoom: 50,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdO-8xrXJAd2jCPw__HRGwuKn67m70zRI&callback=myMap"></script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
