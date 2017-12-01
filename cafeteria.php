@@ -94,6 +94,18 @@ var map = new google.maps.Map(document.getElementById("map"), mapOptions);
             <div class="jumbotron">
                 <h1 class="display-3">Cafeteria </h1>
                 <p class="lead">This Place Has Has Food and Drinks </p>
+                <div id="map" style="width:400px;height:400px;background:yellow"></div>
+                <script>
+                function myMap() {
+                var mapOptions = {
+                    center: new google.maps.LatLng(30.2669377,-81.50626),
+                    zoom: 19,
+                    mapTypeId: google.maps.MapTypeId.HYBRID
+                }
+                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdO-8xrXJAd2jCPw__HRGwuKn67m70zRI&callback=myMap"></script>
                 <hr class="my-4">
                 <p class="lead">
                     <?php
