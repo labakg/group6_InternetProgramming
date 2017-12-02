@@ -56,7 +56,7 @@ $username = $_SESSION['username'];
 $isAdmin = $_SESSION['isAdmin'];
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Hungry Campus</a>
+    <a class="navbar-brand" href="index.php">Hungry Campus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -67,7 +67,7 @@ $isAdmin = $_SESSION['isAdmin'];
                 <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="aboutUs.php">About</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -107,6 +107,7 @@ $isAdmin = $_SESSION['isAdmin'];
         </ul>
     </div>
 </nav>
+<br>
  <div class="container">
      <div class="row">
         <div class="col-md-12">
@@ -140,7 +141,7 @@ $isAdmin = $_SESSION['isAdmin'];
      </div>
          <div class="row">
          <div class="col-md-8">
-             <div class="reviews">
+             <div class="jumbotron">
                      <form name="indexForm" onchange="ajaxFunc()">
                          <div class="form-group">
                              <h2>Recent Reviews</h2>
@@ -173,7 +174,7 @@ $isAdmin = $_SESSION['isAdmin'];
              </div>
          </div>
          <div class="col-md-4">
-             <div class="reviews">
+             <div class="jumbotron">
                  <h3>Who are we?</h3>
                  <p>
                  We are a group of UNF Computing students who wanted to give all students on campus that are passionate about food a voice to be heard.

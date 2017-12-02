@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <style>
         body{background-color: darkblue}
-        .user{background-color: lightgray; padding: 10px; border: 2px solid white; margin: 50px}
     </style>
 
 </head>
@@ -32,7 +31,7 @@
                 <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="aboutUs.php">About</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,10 +71,11 @@
         </ul>
     </div>
 </nav>
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <div class="user">
+            <div class="jumbotron">
             <form name="login" action="login.php" method="post">
                 <div class="form-group">
                     <label name="userName">Username:</label>
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-4">
                         <button id="submit" class="btn btn-primary" type="submit">Login</button>
-                        <a class="btn btn-link" href="registerPage.php">Register</a>
+                        <a class="btn btn-primary btn-link" href="registerPage.php">Register</a>
                     </div>
                     <?php
                     ($error = $_GET['error']);
