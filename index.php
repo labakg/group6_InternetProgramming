@@ -19,7 +19,6 @@
 <body>
 <?php
 session_start();
-$userID = $_SESSION['userID'];
 $username = $_SESSION['username'];
 $isAdmin = $_SESSION['isAdmin'];
 ?>
@@ -42,12 +41,12 @@ $isAdmin = $_SESSION['isAdmin'];
                     Locations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="../locations/cafeteria.php">Cafeteria</a>
-                    <a class="dropdown-item" href="../locations/ChickFilA.php">Chick Fil A</a>
-                    <a class="dropdown-item" href="../locations/starbucks.php">Starbucks</a>
-                    <a class="dropdown-item" href="../locations/papajohns.php">Papa Johns</a>
-                    <a class="dropdown-item" href="../locations/einsteinbagels.php">Einstein Bagels </a>
-                    <a class="dropdown-item" href="../locations/pitapit.php">Pita Pit</a>
+                    <a class="dropdown-item" href="cafeteria.php">Cafeteria</a>
+                    <a class="dropdown-item" href="ChickFilA.php">Chick Fil A</a>
+                    <a class="dropdown-item" href="starbucks.php">Starbucks</a>
+                    <a class="dropdown-item" href="papajohns.php">Papa Johns</a>
+                    <a class="dropdown-item" href="einsteinbagels.php">Einstein Bagels </a>
+                    <a class="dropdown-item" href="pitapit.php">Pita Pit</a>
                 </div>
             </li>
         </ul>
@@ -80,45 +79,14 @@ $isAdmin = $_SESSION['isAdmin'];
     <div class="row">
         <div class="col-md-12">
             <div class="jumbotron">
-                <h2 class="display-3">All posts<span><img class="img" src="../Images/UNF_Ospreys_logo.png"></span></h2>
+                <h2 class="display-3">Locations<span><img class="img" src="../Images/UNF_Ospreys_logo.png"></span></h2>
                 <hr>
-                <p>This is an overview of all thse posts on the site</p>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="reviews">
-                <?php
-                $conn2 = new mysqli("localhost", "group6", "fall2017188953", "group6");
-
-                if($conn2->connect_error){
-                    die("Connection failed : " . $conn2->connect_error);
-                }
-
-                $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time, Post.userID FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID ORDER BY Post.time DESC");
-
-                $query2->execute();
-                $query2->bind_result($postID, $title, $review, $rating, $user, $eateryName, $date, $postUser);
-
-                while($query2->fetch()){
-                    echo "
-                <div>
-                    <h3>$eateryName</h3>
-                    <h3>$title</h3>
-                        <p>$review</p>
-                        <p>Overalll rating: $rating / 5</p>
-                        <p>Posted by: $user on $date</p>
-                        <input type='hidden' name='postID' id='postID' value='$postID'>
-                        " ;
-                    if ($userID == $postUser){
-                        echo "<a class='btn btn-primary' href='edit.php?post=$postID' role='button'>Edit Post</a>";
-                        echo "<br>";
-                        echo "<a class='btn btn-danger' href='delete.php?post=$postID' role='button'>Delete Post</a>";
-                    }
-                    echo "</div><hr>";
-                }
-                ?>
+                <p><a href="cafeteria.php">Osprey Cafe</a></p>
+                <p><a href="ChickFilA.php">Chick-Fila</a></p>
+                <p><a href="starbucks.php">Starbucks</a></p>
+                <p><a href="einsteinbagels.php">Einstein Bagles</a></p>
+                <p><a href="papajohns.php">Papa Johns</a></p>
+                <p><a href="pitapit.php">Pita Pit</a></p>
             </div>
         </div>
     </div>

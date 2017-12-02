@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <style>
         body{background-color: darkblue}
-        .reviews{background-color: lightgray; padding: 10px; border: 2px solid white}
         .img {float: right; height: 20% ; width: 20%}
 
     </style>
@@ -34,10 +33,10 @@ $isAdmin = $_SESSION['isAdmin'];
                 <a class="nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="../aboutUs.php">About</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="index.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Locations
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -74,10 +73,24 @@ $isAdmin = $_SESSION['isAdmin'];
         </ul>
     </div>
 </nav>
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="jumbotron">
+                <div id="map" style="width:320px;height:320px;background:yellow;float:right"></div>
+                <script>
+                    function myMap() {
+                        var mapOptions = {
+                            center: new google.maps.LatLng(30.2646709,-81.5077901),
+                            zoom: 19,
+                            mapTypeId: google.maps.MapTypeId.HYBRID
+                        }
+                        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                    }
+                </script>
+
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdO-8xrXJAd2jCPw__HRGwuKn67m70zRI&callback=myMap"></script>
                 <h1 class="display-3">Pita Pit</h1>
                 <p class="lead">A pit for pitas </p>
                 <hr class="my-4">
@@ -109,37 +122,41 @@ $isAdmin = $_SESSION['isAdmin'];
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="reviews">
-        <h2>Recent Reviews</h2>
-        <hr>
-        <?php
-        $conn2 = new mysqli("localhost", "group6", "fall2017188953", "group6");
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+            <h2>Recent Reviews</h2>
+            <hr>
+            <?php
+            $conn2 = new mysqli("localhost", "group6", "fall2017188953", "group6");
 
-        if($conn2->connect_error){
-            die("Connection failed : " . $conn->connect_error);
-        }
-        $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID WHERE Post.eateryID = 6 ORDER BY Post.time DESC");
-        $query2->execute();
-        $query2->bind_result($postID, $title, $review, $rating, $user, $eateryName, $date);
-
-        while($query2->fetch()){
-            echo "            
-                    <div>
-                    <h3>$title<h3></h3>
-                    <p>$review</p>
-                    <p>Overalll rating: $rating / 5</p>
-                    <p>Posted by: $user on $date</p>
-                    <input type='hidden' name='postID' id='postID' value='$postID'>
-                    " ;
-            if ($isAdmin == 1){
-                echo "<a class='btn btn-danger' href='../posts/delete.php?post=$postID' role='button'>Delete Post</a>";
+            if($conn2->connect_error){
+                die("Connection failed : " . $conn->connect_error);
             }
-            echo "</div><hr>
-                     ";
-        }
-        ?>
-    </div>
+            $query2 = $conn2->prepare("SELECT Post.postID, Post.title, Post.review, Post.rating, User.userName, Eatery.eateryName, Post.time, Post.userID FROM Post INNER JOIN Eatery ON Post.eateryID = Eatery.eateryID INNER JOIN User ON Post.userID = User.userID WHERE Post.eateryID = 6 ORDER BY Post.time DESC");
+            $query2->execute();
+            $query2->bind_result($postID, $title, $review, $rating, $user, $eateryName, $date, $userID);
+
+            while($query2->fetch()){
+                echo "            
+                        <div>
+                        <h3>$title<h3></h3>
+                        <p>$review</p>
+                        <p>Overalll rating: $rating / 5</p>
+                        <p>Posted by: $user on $date</p>
+                        <input type='hidden' name='postID' id='postID' value='$postID'>
+                        " ;
+                if ($isAdmin == 1 || $_SESSION['userID'] == $userID){
+                    echo "<a class='btn btn-primary' href='../posts/edit.php?post=$postID' role='button'>Edit Post</a>";
+                    echo "<br>";
+                    echo "<a class='btn btn-danger' href='../posts/delete.php?post=$postID' role='button'>Delete Post</a>";
+                }
+                echo "</div><hr>
+                         ";
+            }
+            ?>
+        </div>
+        </div>
     </div>
 </div>
 </div>
