@@ -9,10 +9,6 @@ if($username == ""){
     header("Location: ../loginPage.php");
 }
 
-function valid($str) {
-    return preg_match('/^[A-Za-z0-9_~\-!@#\$%\^&*\(\)]+$/',$str);
-
-}
 
 $eateryID = $_POST['eatery'];
 $title = $_POST['title'];
@@ -21,6 +17,7 @@ $review = $_POST['review'];
 $review = preg_replace('#<(.*?)>(.*?)</(.*?)>#is', '', $review);
 $rating = $_POST['rating'];
 $date = date("y.m.d h:i:S a");
+$postID = $_POST['postID'];
 
 $conn = new mysqli("localhost", "group6", "fall2017188953", "group6");
 
@@ -28,12 +25,12 @@ if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
 
-$query = $conn->prepare("INSERT INTO Post (title, review, rating, userID, eateryID, time) Values (?, ?, ?, ?, ?, ?)");
+$query = $conn->prepare("UPDATE Post SET title=?, review=?, rating=?, userID=?, eateryID=? WHERE postID=?");
 
-$query->bind_param("sssiis", $title, $review, $rating, $userID, $eateryID, $date);
+$query->bind_param("sssiii", $title, $review, $rating, $userID, $eateryID, $postID);
 
 if($query->execute() === TRUE){
-    echo "New record created successfully";
+    echo "Record updated successfully";
 }else{
     echo "Error: " . $query . "<br>" . $conn->error;
 }

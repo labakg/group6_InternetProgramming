@@ -17,7 +17,6 @@
 
     <style>
         body{background-color: darkblue}
-        .create{background-color: lightgray; padding: 10px; border: 2px solid white; margin: 50px}
         .img {float: right; height: 20% ; width: 20%}
 
     </style>
@@ -45,7 +44,7 @@ if($username == ""){
                 <a class="nav-link" href="../index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="../aboutUs.php">About</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,10 +84,11 @@ if($username == ""){
         </ul>
     </div>
 </nav>
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="create">
+            <div class="jumbotron">
                 <h3>Leave a review!</h3>
                 <form name="newReview" action="create.php" method="post">
                     <div class="form-group">
