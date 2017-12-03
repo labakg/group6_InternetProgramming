@@ -12,6 +12,7 @@
         body{background-color: darkblue}
         .reviews{background-color: lightgray; padding: 10px; border: 2px solid white}
         .img {float: right; height: 20% ; width: 20%}
+	.footer {position: fixed; left: 0; bottom: 0; width: 100%; text-align: center;}
 
     </style>
 
@@ -90,6 +91,11 @@ $isAdmin = $_SESSION['isAdmin'];
             </div>
         </div>
     </div>
+</div>
+
+<div class="footer">
+<hr>
+	&copy; <?php echo date("Y"); ?> Copyright.
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
